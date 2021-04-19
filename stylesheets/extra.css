@@ -5,3 +5,8 @@
 .google{
     transform: scale(0.8);
 }
+
+.md-grid {
+    max-width: 75%;
+  }
+  
