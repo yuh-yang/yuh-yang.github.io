@@ -1,0 +1,39 @@
+img {
+    float: left;
+    margin-right: 5%; /* 添加一些右边距，以与文本分开 */
+    vertical-align: middle; /* 垂直居中对齐 */
+}
+
+/* 清除照片的浮动 */
+.clear-float {
+    clear: both;
+}
+
+/* 创建一个 flex 容器，使图片和文本在同一行排列 */
+.flex-container {
+    display: flex;
+    align-items: center; /* 垂直居中对齐 */
+}
+
+/* 创建表格来包含图片和文本 */
+table {
+    width: 100%;
+}
+
+/* 设置文本的样式 */
+.text-content {
+    vertical-align: middle; /* 垂直居中对齐 */
+    padding: 20px; /* 添加一些内边距以与图片分开 */
+    font-size: larger;
+    text-size-adjust: auto; /* 文本字号自适应 */
+}
+
+/* 使用媒体查询在较小屏幕上修改布局 */
+@media screen and (max-width: 600px) {
+    table {
+        display: block; /* 将表格显示为块元素 */
+    }
+    td {
+        display: block; /* 将单元格显示为块元素 */
+    }
+}
