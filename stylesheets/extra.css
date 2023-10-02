@@ -1,9 +1,13 @@
 .github{
-    transform: scale(2);
+    transform: scale(1);
 }
 
 .google{
     transform: scale(0.8);
+}
+
+.google-scholar{
+    transform: scale(1);
 }
 
 .md-grid {
