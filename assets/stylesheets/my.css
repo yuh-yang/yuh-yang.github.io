@@ -37,3 +37,8 @@ table {
         display: block; /* 将单元格显示为块元素 */
     }
 }
+
+#date {
+    white-space: nowrap;
+    text-align: left;
+}
