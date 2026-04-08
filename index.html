@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuhao Yang</title>
+<meta name="description" content="Yuhao Yang — PhD student at The University of Hong Kong, researching computer-use agents and GUI agents.">
+<style>
+  :root {
+    --text: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --bg: #fbfbfd;
+    --accent: #0066cc;
+    --border: #e8e8ed;
+    --card-bg: #ffffff;
+    --tag-bg: #f5f5f7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(0, 102, 204, 0.15);
+  }
+
+  a {
+    color: var(--text);
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s;
+  }
+  a:hover {
+    text-decoration-color: var(--text);
+  }
+
+  /* Layout */
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .container-wide {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(251, 251, 253, 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .container,
+  nav .container-wide {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+  }
+  nav .name {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    color: var(--text);
+  }
+  nav .links {
+    display: flex;
+    gap: 24px;
+  }
+  nav .links a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.01em;
+  }
+  nav .links a:hover {
+    color: var(--text);
+  }
+
+  /* Hero */
+  .hero {
+    padding: 140px 0 80px;
+  }
+
+  .hero-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    max-width: 680px;
+  }
+
+  .hero-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .hero-text {
+    flex: 1;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  .hero .tagline {
+    font-size: 17px;
+    color: var(--text-secondary);
+    margin-top: 12px;
+    line-height: 1.55;
+    letter-spacing: -0.005em;
+  }
+  .hero .tagline a {
+    color: var(--text-secondary);
+    text-decoration-color: var(--border);
+  }
+  .hero .tagline a:hover {
+    color: var(--text);
+  }
+
+  .hero-links {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-links a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .hero-links a:hover {
+    color: var(--text);
+  }
+  .hero-links a svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.55;
+    transition: opacity 0.2s;
+  }
+  .hero-links a:hover svg {
+    opacity: 0.85;
+  }
+
+  /* Sections */
+  section {
+    padding: 48px 0;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+  }
+
+  /* Two-column layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .two-col .section-title {
+    grid-column: span 1;
+  }
+
+  /* Projects */
+  .project {
+    margin-bottom: 24px;
+    padding: 24px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .project:last-child {
+    margin-bottom: 0;
+  }
+  .project:hover {
+    border-color: #d2d2d7;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  }
+
+  .project-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .project-name {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .project-name a {
+    text-decoration: none;
+    color: var(--text);
+  }
+  .project-name a:hover {
+    color: var(--accent);
+  }
+
+  .project-stars {
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--tag-bg);
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+  .project-stars svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .project-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-top: 10px;
+    line-height: 1.55;
+  }
+
+  .project-tags {
+    margin-top: 14px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .project-tags span {
+    font-size: 12px;
+    color: var(--text-secondary);
+    background: var(--tag-bg);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.01em;
+  }
+
+  .project-links {
+    margin-top: 16px;
+    display: flex;
+    gap: 16px;
+  }
+  .project-links a {
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+  .project-links a:hover {
+    opacity: 0.7;
+  }
+
+  /* Publications */
+  .pub {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .pub:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .pub-title {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+  .pub-title a {
+    text-decoration: none;
+    color: var(--text);
+  }
+  .pub-title a:hover {
+    color: var(--accent);
+  }
+
+  .pub-meta {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  .pub-venue {
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .pub-links {
+    margin-top: 6px;
+    display: flex;
+    gap: 14px;
+  }
+  .pub-links a {
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .pub-links a:hover {
+    opacity: 0.7;
+  }
+
+  /* Experience */
+  .exp-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+    gap: 16px;
+  }
+  .exp-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .exp-role {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .exp-org {
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+  .exp-date {
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+  }
+
+  /* Footer */
+  footer {
+    padding: 48px 0 64px;
+    text-align: center;
+  }
+  footer p {
+    font-size: 12px;
+    color: var(--text-secondary);
+    letter-spacing: 0.01em;
+  }
+
+  /* Animations */
+  @keyframes softIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 800px) {
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+  @media (max-width: 600px) {
+    .hero {
+      padding: 120px 0 56px;
+    }
+    .hero-inner {
+      flex-direction: column;
+      gap: 24px;
+    }
+    .hero-photo {
+      width: 80px;
+      height: 80px;
+    }
+    .hero h1 {
+      font-size: 26px;
+    }
+    .hero .tagline {
+      font-size: 16px;
+    }
+    .project {
+      padding: 22px;
+    }
+    .exp-item {
+      flex-direction: column;
+      gap: 2px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container-wide">
+    <a href="#" class="name">Yuhao Yang</a>
+    <div class="links">
+      <a href="#projects">Projects</a>
+      <a href="#publications">Publications</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container-wide">
+
+  <section class="hero">
+    <div class="hero-inner">
+      <!-- <img class="hero-photo" src="photo.jpg" alt="Yuhao Yang" onerror="this.style.display='none'"> -->
+      <div class="hero-text">
+        <h1>Yuhao Yang</h1>
+        <p class="tagline">
+          PhD student at <a href="https://www.hku.hk/" target="_blank">The University of Hong Kong</a>, advised by <a href="https://sites.google.com/view/chaoh" target="_blank">Prof.&nbsp;Chao&nbsp;Huang</a>.<br>
+          Building agents that operate digital worlds — across models, infra, and tool layers.
+        </p>
+        <div class="hero-links">
+          <a href="mailto:yuhao-yang@outlook.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+          <a href="https://scholar.google.com/citations?user=kCGC_DMAAAAJ" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+            Scholar
+          </a>
+          <a href="https://github.com/yuh-yang" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://x.com/itsyuhao" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Twitter
+          </a>
+          <a href="https://www.linkedin.com/in/yuhao-yang-418a521a4/" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- end .container for hero -->
+
+  <section id="work">
+    <div class="container-wide">
+      <div class="two-col">
+
+        <!-- Left: Open Source -->
+        <div id="projects">
+          <div class="section-title reveal">Open Source</div>
+
+          <div class="project reveal">
+            <div class="project-header">
+              <div class="project-name"><a href="https://github.com/HKUDS/CLI-Anything" target="_blank">CLI-Anything</a></div>
+              <span class="project-stars" data-repo="HKUDS/CLI-Anything">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.191-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168L.132 9.209l8.2-1.191z"/></svg>
+                <span class="star-count">29.4k</span>
+              </span>
+            </div>
+            <p class="project-desc">Making all software agent-native. Auto-generates CLI interfaces from any source code — so AI agents can operate any application.</p>
+            <div class="project-tags">
+              <span>Computer-Use Agents</span>
+              <span>Agent Infrastructure</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/HKUDS/CLI-Anything" target="_blank">GitHub →</a>
+              <a href="https://hkuds.github.io/CLI-Anything/" target="_blank">Project Page →</a>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="project-header">
+              <div class="project-name"><a href="https://github.com/HKUDS/AI-Trader" target="_blank">AI-Trader</a></div>
+              <span class="project-stars" data-repo="HKUDS/AI-Trader">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.191-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168L.132 9.209l8.2-1.191z"/></svg>
+                <span class="star-count">12.6k</span>
+              </span>
+            </div>
+            <p class="project-desc">Fully-automated agent-native trading. AI agents publish signals, collaborate, and execute trades autonomously across markets.</p>
+            <div class="project-tags">
+              <span>Autonomous Agents</span>
+              <span>Multi-Agent Systems</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/HKUDS/AI-Trader" target="_blank">GitHub →</a>
+              <a href="https://ai4trade.ai" target="_blank">Live Platform →</a>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="project-header">
+              <div class="project-name"><a href="https://github.com/HKUDS/ClawWork" target="_blank">ClawWork</a></div>
+              <span class="project-stars" data-repo="HKUDS/ClawWork">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.191-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168L.132 9.209l8.2-1.191z"/></svg>
+                <span class="star-count">7.9k</span>
+              </span>
+            </div>
+            <p class="project-desc">An economic survival challenge for AI agents. Built on GDPVal — agents pay for every token and must turn a profit through real work.</p>
+            <div class="project-tags">
+              <span>Agent Evaluation</span>
+              <span>Economic Benchmarking</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/HKUDS/ClawWork" target="_blank">GitHub →</a>
+              <a href="https://hkuds.github.io/ClawWork/" target="_blank">Dashboard →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Publications -->
+        <div id="publications">
+          <div class="section-title reveal">Publications</div>
+
+          <div class="pub reveal">
+            <div class="pub-title"><a href="https://arxiv.org/abs/2510.17790" target="_blank">UltraCUA: A Foundation Model for Computer Use Agents with Hybrid Action</a></div>
+            <div class="pub-meta"><strong>Y. Yang</strong>, Z. Yang, Z.Y. Dou, A. Nguyen, K. You, O. Attia, A. Szot, M. Feng, ...</div>
+            <div class="pub-links">
+              <a href="https://arxiv.org/abs/2510.17790" target="_blank">Paper</a>
+            </div>
+          </div>
+
+          <div class="pub reveal">
+            <div class="pub-title"><a href="https://arxiv.org/abs/2412.16256" target="_blank">Aria-UI: Visual Grounding for GUI Instructions</a></div>
+            <div class="pub-meta"><strong>Y. Yang</strong>, Y. Wang, D. Li, Z. Luo, B. Chen, C. Huang, J. Li</div>
+            <div class="pub-links">
+              <a href="https://arxiv.org/abs/2412.16256" target="_blank">Paper</a>
+              <a href="https://ariaui.github.io" target="_blank">Model</a>
+              <a href="https://ariaui.github.io" target="_blank">Code</a>
+              <a href="https://ariaui.github.io" target="_blank">Dataset</a>
+            </div>
+          </div>
+
+          <div class="pub reveal">
+            <div class="pub-title"><a href="https://arxiv.org/abs/2507.05791" target="_blank">GTA1: GUI Test-Time Scaling Agent</a></div>
+            <div class="pub-meta">Y. Yang, D. Li, Y. Dai, <strong>Y. Yang</strong>, Z. Luo, Z. Zhao, Z. Hu, J. Huang, A. Saha, ...</div>
+            <div class="pub-links">
+              <a href="https://arxiv.org/abs/2507.05791" target="_blank">Paper</a>
+              <a href="https://github.com/Yan98/GTA1" target="_blank">Model</a>
+              <a href="https://github.com/Yan98/GTA1" target="_blank">Code</a>
+              <a href="https://github.com/Yan98/GTA1" target="_blank">Dataset</a>
+            </div>
+          </div>
+
+          <div class="pub reveal">
+            <div class="pub-title"><a href="https://arxiv.org/abs/2509.26539" target="_blank">Ferret-UI Lite: Lessons from Building Small On-Device GUI Agents</a></div>
+            <div class="pub-meta">Z. Yang, Z.Y. Dou, D. Feng, F. Huang, A. Nguyen, K. You, O. Attia, <strong>Y. Yang</strong>, ...</div>
+            <div class="pub-links">
+              <a href="https://arxiv.org/abs/2509.26539" target="_blank">Paper</a>
+            </div>
+          </div>
+
+          <div class="pub reveal">
+            <div class="pub-title"><a href="https://arxiv.org/abs/2509.25047" target="_blank">Scaling Synthetic Task Generation for Agents via Exploration</a></div>
+            <div class="pub-meta">R. Ramrakhya, A. Szot, O. Attia, <strong>Y. Yang</strong>, A. Nguyen, B. Mazoure, Z. Gan, ...</div>
+            <div class="pub-links">
+              <a href="https://arxiv.org/abs/2509.25047" target="_blank">Paper</a>
+            </div>
+          </div>
+
+          <div class="pub reveal">
+            <div class="pub-title"><a href="https://arxiv.org/abs/2512.10971" target="_blank">AI-Trader: Benchmarking Autonomous Agents in Real-Time Financial Markets</a></div>
+            <div class="pub-meta">T. Fan, <strong>Y. Yang</strong>, Y. Jiang, Y. Zhang, Y. Chen, C. Huang</div>
+            <div class="pub-links">
+              <a href="https://arxiv.org/abs/2512.10971" target="_blank">Paper</a>
+              <a href="https://github.com/HKUDS/AI-Trader" target="_blank">Code</a>
+            </div>
+          </div>
+
+          <div class="pub reveal">
+            <div class="pub-title"><a href="https://arxiv.org/abs/2508.02344" target="_blank">Traffic-R1: Reinforced LLMs Bring Human-Like Reasoning to Traffic Signal Control</a></div>
+            <div class="pub-meta">X. Zou, <strong>Y. Yang</strong>, Z. Chen, X. Hao, Y. Chen, C. Huang, Y. Liang</div>
+            <div class="pub-links">
+              <a href="https://arxiv.org/abs/2508.02344" target="_blank">Paper</a>
+            </div>
+          </div>
+
+          <div class="pub reveal">
+            <div class="pub-title"><a href="#" target="_blank">GraphAgent: Agentic Graph Language Assistant</a></div>
+            <div class="pub-meta"><strong>Y. Yang</strong>, J. Tang, L. Xia, X. Zou, Y. Liang, C. Huang</div>
+            <div class="pub-links">
+              <a href="#" target="_blank">Paper</a>
+              <a href="https://github.com/HKUDS/GraphAgent" target="_blank">Model</a>
+              <a href="https://github.com/HKUDS/GraphAgent" target="_blank">Code</a>
+              <a href="https://github.com/HKUDS/GraphAgent" target="_blank">Dataset</a>
+            </div>
+          </div>
+
+          <p class="reveal" style="margin-top: 24px; font-size: 13px; color: var(--text-secondary);">
+            Full list on <a href="https://scholar.google.com/citations?user=kCGC_DMAAAAJ" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500;">Google Scholar</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="container-wide">
+
+  <footer>
+    <p>Yuhao Yang · Hong Kong</p>
+  </footer>
+
+</div>
+
+<script>
+// Intersection Observer for scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      // Stagger siblings slightly
+      const siblings = entry.target.parentElement.querySelectorAll('.reveal');
+      const index = Array.from(siblings).indexOf(entry.target);
+      entry.target.style.transitionDelay = `${index * 0.06}s`;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.01,
+  rootMargin: '0px 0px 200px 0px'
+});
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Subtle nav shadow on scroll
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 10) {
+    nav.style.borderBottomColor = '#d2d2d7';
+  } else {
+    nav.style.borderBottomColor = '#e8e8ed';
+  }
+}, { passive: true });
+
+// Fetch live GitHub star counts
+function formatStars(n) {
+  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+  return n.toString();
+}
+
+document.querySelectorAll('.project-stars[data-repo]').forEach(el => {
+  const repo = el.dataset.repo;
+  fetch(`https://api.github.com/repos/${repo}`)
+    .then(r => r.json())
+    .then(data => {
+      if (data.stargazers_count != null) {
+        el.querySelector('.star-count').textContent = formatStars(data.stargazers_count);
+      }
+    })
+    .catch(() => {}); // keep fallback value on error
+});
+</script>
+
+</body>
+</html>
