@@ -408,7 +408,14 @@
   @media (max-width: 800px) {
     .two-col {
       grid-template-columns: 1fr;
-      gap: 0;
+      gap: 72px;
+    }
+    #publications {
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    #publications .section-title {
+      margin-bottom: 32px;
     }
   }
   @media (max-width: 600px) {
@@ -432,12 +439,23 @@
     .project {
       padding: 22px;
     }
+    #publications {
+      padding-top: 44px;
+    }
     .exp-item {
       flex-direction: column;
       gap: 2px;
     }
   }
 </style>
+<script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Mi Ri init Vi Gi Rr Wi Ji Bi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync un identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Xi createPersonProfile setInternalOrTestUser sn Hi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ki debug Lr rn getPageViewId captureTraceFeedback captureTraceMetric Di".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_mppnheLwe8nd3hMToLE4x2ULYMqJb75hVUdzQcSHsT5p', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-01-30',
+        person_profiles: 'always',
+    })
+</script>
 </head>
 <body>
 
@@ -503,7 +521,7 @@
               <div class="project-name"><a href="https://github.com/HKUDS/CLI-Anything" target="_blank">CLI-Anything</a></div>
               <span class="project-stars" data-repo="HKUDS/CLI-Anything">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.191-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168L.132 9.209l8.2-1.191z"/></svg>
-                <span class="star-count">29.4k</span>
+                <span class="star-count">34.3k</span>
               </span>
             </div>
             <p class="project-desc">Making all software agent-native. Auto-generates CLI interfaces from any source code — so AI agents can operate any application.</p>
@@ -522,7 +540,7 @@
               <div class="project-name"><a href="https://github.com/HKUDS/AI-Trader" target="_blank">AI-Trader</a></div>
               <span class="project-stars" data-repo="HKUDS/AI-Trader">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.191-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168L.132 9.209l8.2-1.191z"/></svg>
-                <span class="star-count">12.6k</span>
+                <span class="star-count">16.9k</span>
               </span>
             </div>
             <p class="project-desc">Fully-automated agent-native trading. AI agents publish signals, collaborate, and execute trades autonomously across markets.</p>
@@ -541,7 +559,7 @@
               <div class="project-name"><a href="https://github.com/HKUDS/ClawWork" target="_blank">ClawWork</a></div>
               <span class="project-stars" data-repo="HKUDS/ClawWork">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.191-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.858 1.4-8.168L.132 9.209l8.2-1.191z"/></svg>
-                <span class="star-count">7.9k</span>
+                <span class="star-count">8.1k</span>
               </span>
             </div>
             <p class="project-desc">An economic survival challenge for AI agents. Built on GDPVal — agents pay for every token and must turn a profit through real work.</p>
@@ -681,23 +699,57 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-// Fetch live GitHub star counts
+// Fetch live GitHub star counts from third-party cached sources.
 function formatStars(n) {
   if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
   return n.toString();
 }
 
-document.querySelectorAll('.project-stars[data-repo]').forEach(el => {
+function normalizeBadgeStars(value) {
+  if (typeof value !== 'string') return null;
+  return value.trim().replace(/\s+stars?$/i, '');
+}
+
+async function fetchJsonWithTimeout(url, timeoutMs = 8000) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const response = await fetch(url, {
+      headers: { Accept: 'application/json' },
+      signal: controller.signal
+    });
+
+    if (!response.ok) return null;
+    return await response.json();
+  } catch (_) {
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function updateStarCount(el) {
   const repo = el.dataset.repo;
-  fetch(`https://api.github.com/repos/${repo}`)
-    .then(r => r.json())
-    .then(data => {
-      if (data.stargazers_count != null) {
-        el.querySelector('.star-count').textContent = formatStars(data.stargazers_count);
-      }
-    })
-    .catch(() => {}); // keep fallback value on error
-});
+  const countEl = el.querySelector('.star-count');
+  if (!repo || !countEl) return;
+
+  const repoPath = repo.split('/').map(encodeURIComponent).join('/');
+  const unghData = await fetchJsonWithTimeout(`https://ungh.cc/repos/${repoPath}`);
+  let stars = Number.isFinite(unghData?.repo?.stars) ? formatStars(unghData.repo.stars) : null;
+
+  if (!stars) {
+    const shieldsData = await fetchJsonWithTimeout(`https://img.shields.io/github/stars/${repoPath}.json`);
+    stars = normalizeBadgeStars(shieldsData?.message || shieldsData?.value);
+  }
+
+  if (stars) {
+    countEl.textContent = stars;
+    el.setAttribute('aria-label', `${repo} has ${stars} GitHub stars`);
+  }
+}
+
+document.querySelectorAll('.project-stars[data-repo]').forEach(updateStarCount);
 </script>
 
 </body>
