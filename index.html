@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yuhao Yang</title>
-<meta name="description" content="Yuhao Yang — PhD student at The University of Hong Kong, researching computer-use agents and GUI agents.">
+<meta name="description" content="Yuhao Yang builds computer-use agents across models, infrastructure, and harnesses. Work includes CLI-Anything, UltraCUA, and Aria-UI. PhD, HKU.">
 <style>
   :root {
     --text: #1d1d1f;
@@ -144,6 +144,19 @@
   }
   .hero .tagline a:hover {
     color: var(--text);
+  }
+
+  .hero .bio {
+    margin-top: 24px;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .hero .bio p + p {
+    margin-top: 16px;
+  }
+  .hero .bio .education {
+    font-size: 14px;
+    color: var(--text-secondary);
   }
 
   .hero-links {
@@ -477,9 +490,17 @@
       <div class="hero-text">
         <h1>Yuhao Yang</h1>
         <p class="tagline">
-          PhD student at <a href="https://www.hku.hk/" target="_blank">The University of Hong Kong</a>, advised by <a href="https://sites.google.com/view/chaoh" target="_blank">Prof.&nbsp;Chao&nbsp;Huang</a>.<br>
-          Building agents that operate digital worlds — across models, infra, and tool layers.
+          Build agents that operate digital worlds. Work across models, infra, and harnesses.
         </p>
+        <div class="bio">
+          <p>
+            I built <a href="https://github.com/HKUDS/CLI-Anything" target="_blank" rel="noopener noreferrer">CLI-Anything</a>, which reached <a href="https://trendshift.io/repositories/22991" target="_blank" rel="noopener noreferrer" title="GitHub Trending, May 17, 2026: Python ranking">#1 on GitHub Trending globally</a>. Since its early-2026 release, it has led the shift toward agent-native computer use, reflecting a growing consensus that software should be built for agents. This direction is now embraced by platforms including <a href="https://github.com/larksuite/cli" target="_blank" rel="noopener noreferrer">Feishu</a>, <a href="https://github.com/WecomTeam/wecom-cli" target="_blank" rel="noopener noreferrer">WeCom</a>, and <a href="https://developers.notion.com/cli/reference/commands" target="_blank" rel="noopener noreferrer">Notion</a>, etc., through releasing their own CLIs.
+          </p>
+          <p>
+            I led <a href="https://arxiv.org/abs/2510.17790" target="_blank" rel="noopener noreferrer">UltraCUA</a>, one of the first works to establish the hybrid computer-use paradigm. I also introduced <a href="https://ariaui.github.io/" target="_blank" rel="noopener noreferrer">Aria-UI</a>, whose open dataset is a <a href="https://huggingface.co/datasets/Salesforce/grounding_dataset" target="_blank" rel="noopener noreferrer">data foundation for training today’s computer-use agents</a>.
+          </p>
+          <p class="education">I received my PhD from <a href="https://www.hku.hk/" target="_blank" rel="noopener noreferrer">The University of Hong Kong</a>. My thesis received the <a href="https://www.kdd.org/awards/sigkdd-dissertation-award" target="_blank" rel="noopener noreferrer">2026 ACM SIGKDD Dissertation Award (Best Runner-Up)</a>.</p>
+        </div>
         <div class="hero-links">
           <a href="mailto:yuhao-yang@outlook.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
